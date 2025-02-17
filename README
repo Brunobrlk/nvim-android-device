@@ -1,0 +1,78 @@
+# nvim-android-device
+A minimal nvim plugin that displays connected android device's model name in lualine. Developed for flutter devs who use nvim.
+
+> [!NOTE]  
+> This plugin is to be used if and only if you are using [nvim-lualine](https://github.com/nvim-lualine/lualine.nvim).
+
+## Screenshot
+Here is a preview of how the name of the attached android device is displayed in lualine.
+<p>
+<img src='./assets/lualine.png'/>
+</p>
+
+
+## Installation
+Since the plugin is to used when [nvim-lualine](https://github.com/nvim-lualine/lualine.nvim) is used, we can add it as a dependency when installing `nvim-lualine`.
+
+### [vim-plug](https://github.com/junegunn/vim-plug)
+
+```vim
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'biplab-dutta/nvim-android-device'
+```
+
+### [packer.nvim](https://github.com/wbthomason/packer.nvim)
+
+```lua
+use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'biplab-dutta/nvim-android-device', opt = true }
+}
+```
+
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
+
+```lua
+{
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'biplab-dutta/nvim-android-device' }
+}
+```
+
+## Usage
+
+> [!IMPORTANT]
+> Users must install [adb](https://developer.android.com/tools/adb) on their system to be able to use this plugin.
+
+In the lualine config file,
+```lua
+local device = require 'nvim_android_device'
+require('lualine').setup {
+    sections = {
+        lualine_a = {} -- Some config
+        lualine_b = {} -- Some config
+        lualine_c = {} -- Some config
+        lualine_x = {
+          {
+            'diagnostics',
+            sources = { 'nvim_diagnostic' },
+            sections = { 'error', 'warn' },
+            symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+            colored = false,
+            update_in_insert = false,
+            always_visible = false,
+            cond = hide_in_width,
+          },
+          {
+            'diff',
+            colored = false,
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
+            cond = hide_in_width,
+          },
+          { 'encoding', cond = hide_in_width },
+          { 'filetype', cond = hide_in_width },
+          { device.android_model, cond = hide_in_width }, -- Invoke the function `android_model()` from nvim_android_device plugin
+        },
+    },
+}
+```
