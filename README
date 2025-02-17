@@ -1,8 +1,9 @@
 # nvim-android-device
-A minimal nvim plugin that displays connected android device's model name in lualine. Developed for flutter devs who use nvim.
+A minimal neovim plugin that displays the connected android device's model name in the status line when working on a flutter project. Designed for Flutter developers who use neovim.
 
-> [!NOTE]  
+> [!NOTE]
 > This plugin is to be used if and only if you are using [nvim-lualine](https://github.com/nvim-lualine/lualine.nvim).
+
 
 ## Screenshot
 Here is a preview of how the name of the attached android device is displayed in lualine.
@@ -12,7 +13,7 @@ Here is a preview of how the name of the attached android device is displayed in
 
 
 ## Installation
-Since the plugin is to used when [nvim-lualine](https://github.com/nvim-lualine/lualine.nvim) is used, we can add it as a dependency when installing `nvim-lualine`.
+Since the plugin is intended for use with [nvim-lualine](https://github.com/nvim-lualine/lualine.nvim), we can add it as a dependency when installing [nvim-lualine](https://github.com/nvim-lualine/lualine.nvim).
 
 ### [vim-plug](https://github.com/junegunn/vim-plug)
 
@@ -26,7 +27,7 @@ Plug 'biplab-dutta/nvim-android-device'
 ```lua
 use {
   'nvim-lualine/lualine.nvim',
-  requires = { 'biplab-dutta/nvim-android-device', opt = true }
+  requires = { 'biplab-dutta/nvim-android-device' }
 }
 ```
 
@@ -42,7 +43,7 @@ use {
 ## Usage
 
 > [!IMPORTANT]
-> Users must install [adb](https://developer.android.com/tools/adb) on their system to be able to use this plugin.
+> Users must have [adb](https://developer.android.com/tools/adb) installed on their system to use this plugin.
 
 In the lualine config file,
 ```lua
@@ -76,3 +77,6 @@ require('lualine').setup {
     },
 }
 ```
+
+> [!NOTE]
+> The position of the device model text can be customized based on the user's preference. In this example, it is placed at the bottom right of the screen, as shown in the [screenshot](#screenshot) above.
