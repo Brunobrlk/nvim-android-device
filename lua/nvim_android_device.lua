@@ -31,8 +31,7 @@ function M.get_attached_device()
 	return "No device connected"
 end
 
--- Function to register lualine component
-function M.android_device_name()
+function M.android_model()
 	return M.get_attached_device()
 end
 
