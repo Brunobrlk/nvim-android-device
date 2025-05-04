@@ -1,12 +1,28 @@
 local M = {}
 
-local function is_flutter_project()
-	local cwd = vim.fn.getcwd()
-	return vim.fn.filereadable(cwd .. "/pubspec.yaml") == 1
+local function is_android_or_flutter_project()
+    local cwd = vim.fn.getcwd()
+
+    local flutter_exists = vim.fn.filereadable(cwd .. "/pubspec.yaml") == 1
+    local gradle_files = vim.fn.glob(cwd .. "/build.gradle*", false, true)
+    local is_android_gradle = false
+
+    for _, file in ipairs(gradle_files) do
+        local lines = vim.fn.readfile(file)
+        for _, line in ipairs(lines) do
+            if line:lower():find("android") then
+                is_android_gradle = true
+                break
+            end
+        end
+        if is_android_gradle then break end
+    end
+
+    return flutter_exists or is_android_gradle
 end
 
 function M.get_attached_device()
-	if not is_flutter_project() then
+	if not is_android_or_flutter_project() then
 		return ""
 	end
 
